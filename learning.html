@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>UK Energy Dashboard - Learning</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <style>
+        .learning-container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .fuel-type {
+            background: white;
+            border-radius: 8px;
+            padding: 25px;
+            margin-bottom: 30px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .fuel-type h2 {
+            color: #4682B4;
+            margin-top: 0;
+            border-bottom: 2px solid #f0f0f0;
+            padding-bottom: 10px;
+        }
+
+        .fuel-type h3 {
+            color: #666;
+            margin: 20px 0 10px;
+        }
+
+        .fuel-type p {
+            line-height: 1.6;
+            color: #333;
+        }
+
+        .variation-info {
+            background: #f8f9fa;
+            border-left: 4px solid #4682B4;
+            padding: 15px;
+            margin: 15px 0;
+        }
+
+        .fun-fact {
+            background: #e8f4f8;
+            border-radius: 6px;
+            padding: 15px;
+            margin: 15px 0;
+            font-style: italic;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header-container">
+            <div class="nav-menu">
+                <button id="menuButton" class="menu-button">☰</button>
+                <div id="menuDropdown" class="menu-dropdown">
+                    <a href="index.html">UK Electricity Dashboard</a>
+                    <a href="blog.html">Articles</a>
+                    <a href="learning.html">Learning</a>
+                </div>
+            </div>
+            <h1>Understanding UK Electricity Generation</h1>
+        </div>
+
+        <div class="learning-container">
+            <div class="fuel-type">
+                <h2>Solar Generation</h2>
+                <p>Solar panels convert sunlight directly into electricity using photovoltaic cells. The UK has seen significant growth in solar capacity, with both large solar farms and residential installations.</p>
+                
+                <h3>How it Works</h3>
+                <p>When sunlight hits a solar panel, it excites electrons in silicon cells, creating an electric current. This process, known as the photovoltaic effect, generates DC electricity which is then converted to AC for grid use.</p>
+                
+                <div class="variation-info">
+                    <h3>Daily Variation</h3>
+                    <p>Solar generation follows a predictable daily pattern:</p>
+                    <ul>
+                        <li>Peak generation occurs around midday when sunlight is strongest</li>
+                        <li>No generation during nighttime hours</li>
+                        <li>Generation can vary rapidly with cloud cover</li>
+                    </ul>
+                    
+                    <h3>Seasonal Variation</h3>
+                    <p>The UK experiences significant seasonal variation in solar output:</p>
+                    <ul>
+                        <li>Summer: Long days with peak generation often exceeding 7GW</li>
+                        <li>Winter: Shorter days and lower sun angle reduce output significantly</li>
+                        <li>Spring/Autumn: Moderate generation with variable output</li>
+                    </ul>
+                </div>
+                
+                <div class="fun-fact">
+                    Did you know? The UK's largest solar farm, Cleve Hill in Kent, can power over 91,000 homes!
+                </div>
+            </div>
+
+            <div class="fuel-type">
+                <h2>Wind Generation</h2>
+                <p>Wind power is one of the UK's largest renewable energy sources, with both onshore and offshore wind farms contributing significantly to the grid.</p>
+                
+                <h3>How it Works</h3>
+                <p>Wind turbines convert kinetic energy from moving air into mechanical energy, which drives a generator to produce electricity. Modern turbines can adjust their blade angles to optimize generation in different wind conditions.</p>
+                
+                <div class="variation-info">
+                    <h3>Daily Variation</h3>
+                    <p>Wind generation can vary significantly throughout the day:</p>
+                    <ul>
+                        <li>No fixed daily pattern like solar</li>
+                        <li>Often stronger at night due to temperature differences</li>
+                        <li>Can provide power 24/7 when conditions are favorable</li>
+                    </ul>
+                    
+                    <h3>Seasonal Variation</h3>
+                    <p>Wind patterns show seasonal trends:</p>
+                    <ul>
+                        <li>Winter: Generally higher output due to stronger winds</li>
+                        <li>Summer: Usually lower but more stable output</li>
+                        <li>Autumn/Spring: Variable with passing weather systems</li>
+                    </ul>
+                </div>
+                
+                <div class="fun-fact">
+                    Did you know? The UK is home to the world's largest offshore wind farm, Hornsea 2, which can power over 1.3 million homes!
+                </div>
+            </div>
+
+            <div class="fuel-type">
+                <h2>Nuclear Generation</h2>
+                <p>Nuclear power provides reliable baseload electricity generation in the UK, operating continuously for months at a time.</p>
+                
+                <h3>How it Works</h3>
+                <p>Nuclear reactors use controlled fission of uranium atoms to generate heat, which produces steam to drive turbines. This process runs continuously, providing stable power output.</p>
+                
+                <div class="variation-info">
+                    <h3>Daily Variation</h3>
+                    <p>Nuclear power has very stable daily output:</p>
+                    <ul>
+                        <li>Constant generation levels 24/7</li>
+                        <li>Rarely adjusts output to match demand</li>
+                        <li>Planned maintenance periods for refueling</li>
+                    </ul>
+                    
+                    <h3>Seasonal Variation</h3>
+                    <p>Nuclear generation remains consistent year-round:</p>
+                    <ul>
+                        <li>No seasonal variation in output capability</li>
+                        <li>Maintenance typically scheduled for lower demand periods</li>
+                        <li>Provides reliable baseload throughout the year</li>
+                    </ul>
+                </div>
+                
+                <div class="fun-fact">
+                    Did you know? A single nuclear fuel pellet the size of a fingertip contains as much energy as 1 tonne of coal!
+                </div>
+            </div>
+
+            <div class="fuel-type">
+                <h2>Gas Generation</h2>
+                <p>Gas power stations are crucial for balancing the UK grid, able to rapidly adjust output to match demand and complement renewable generation.</p>
+                
+                <h3>How it Works</h3>
+                <p>Combined Cycle Gas Turbines (CCGT) burn natural gas to drive turbines and use waste heat to generate additional power. This makes them both efficient and flexible.</p>
+                
+                <div class="variation-info">
+                    <h3>Daily Variation</h3>
+                    <p>Gas generation responds to demand and renewable output:</p>
+                    <ul>
+                        <li>Peaks during morning and evening demand</li>
+                        <li>Reduces when renewable generation is high</li>
+                        <li>Can ramp up/down quickly to balance the grid</li>
+                    </ul>
+                    
+                    <h3>Seasonal Variation</h3>
+                    <p>Gas output varies with seasonal demand:</p>
+                    <ul>
+                        <li>Winter: Higher output due to increased demand</li>
+                        <li>Summer: Lower baseline generation</li>
+                        <li>Fills gaps when renewable generation is low</li>
+                    </ul>
+                </div>
+                
+                <div class="fun-fact">
+                    Did you know? Modern gas power stations can reach full power from standstill in less than 30 minutes!
+                </div>
+            </div>
+
+            <div class="fuel-type">
+                <h2>Interconnector Flows</h2>
+                <p>The UK's interconnectors link our electricity grid with neighboring countries, allowing power to flow where it's needed most.</p>
+                
+                <h3>How it Works</h3>
+                <p>Interconnectors use high-voltage direct current (HVDC) technology to efficiently transport electricity over long distances, converting between AC and DC at each end.</p>
+                
+                <div class="variation-info">
+                    <h3>Daily Variation</h3>
+                    <p>Interconnector flows respond to price differences:</p>
+                    <ul>
+                        <li>Direction can change multiple times per day</li>
+                        <li>Flows often follow price signals in each market</li>
+                        <li>Can help balance renewable generation</li>
+                    </ul>
+                    
+                    <h3>Seasonal Variation</h3>
+                    <p>Seasonal patterns reflect regional differences:</p>
+                    <ul>
+                        <li>Winter: Often importing during peak demand</li>
+                        <li>Summer: May export excess solar generation</li>
+                        <li>Helps balance weather-dependent renewables across regions</li>
+                    </ul>
+                </div>
+                
+                <div class="fun-fact">
+                    Did you know? The North Sea Link between the UK and Norway is the world's longest subsea electricity interconnector at 720km!
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Navigation menu functionality
+        document.getElementById('menuButton').addEventListener('click', function(event) {
+            event.stopPropagation();
+            document.getElementById('menuDropdown').classList.toggle('show');
+        });
+
+        // Close the dropdown when clicking outside
+        window.addEventListener('click', function(event) {
+            if (!event.target.matches('.menu-button')) {
+                var dropdowns = document.getElementsByClassName('menu-dropdown');
+                for (var i = 0; i < dropdowns.length; i++) {
+                    var openDropdown = dropdowns[i];
+                    if (openDropdown.classList.contains('show')) {
+                        openDropdown.classList.remove('show');
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html>

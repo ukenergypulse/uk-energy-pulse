@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Articles - UK Energy Dashboard</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <div class="container">
+        <div class="header-container">
+            <div class="nav-menu">
+                <button id="menuButton" class="menu-button">☰</button>
+                <div id="menuDropdown" class="menu-dropdown">
+                    <a href="index.html">UK Electricity Dashboard</a>
+                    <a href="blog.html">Articles</a>
+                    <a href="learning.html">Learning</a>
+                </div>
+            </div>
+            <h1>Energy Articles</h1>
+        </div>
+        <p>Coming soon...</p>
+
+        <div class="blog-posts">
+            <!-- Blog posts will be dynamically loaded here -->
+        </div>
+    </div>
+
+    <script type="module" src="js/blog.js"></script>
+    <script>
+        // Navigation menu functionality
+        document.getElementById('menuButton').addEventListener('click', function(event) {
+            event.stopPropagation();
+            document.getElementById('menuDropdown').classList.toggle('show');
+        });
+
+        // Close the dropdown when clicking outside
+        window.addEventListener('click', function(event) {
+            if (!event.target.matches('.menu-button')) {
+                var dropdowns = document.getElementsByClassName('menu-dropdown');
+                for (var i = 0; i < dropdowns.length; i++) {
+                    var openDropdown = dropdowns[i];
+                    if (openDropdown.classList.contains('show')) {
+                        openDropdown.classList.remove('show');
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html>
