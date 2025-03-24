@@ -394,7 +394,9 @@ async function updateHistoricalChart() {
                 backgroundColor: config.colors[fuelType],
                 borderColor: config.colors[fuelType],
                 fill: true,
-                borderWidth: 1
+                borderWidth: 1,
+                tension: fuelType === 'SOLAR' ? 0.4 : 0,  // Add smooth line interpolation for solar data
+                stepped: fuelType === 'SOLAR' ? false : true  // Ensure lines are not stepped for solar data
             }))
         };
 
