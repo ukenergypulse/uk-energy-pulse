@@ -395,10 +395,13 @@ async function updateHistoricalChart() {
                 borderColor: config.colors[fuelType],
                 fill: true,
                 borderWidth: 1,
-                tension: fuelType === 'SOLAR' ? 0.4 : 0,  // Add smooth line interpolation for solar data
-                stepped: fuelType === 'SOLAR' ? false : true  // Ensure lines are not stepped for solar data
+                tension: 0.2,  // Moderate tension for all lines
+                stepped: false  // No stepping for smoother appearance
             }))
         };
+
+        // Ensure chart is updated
+        historicalChart.update('none');  // Add explicit update call
 
         // Update current mix chart with latest values
         const latestValues = stackOrder.map(fuelType => {
@@ -442,7 +445,6 @@ async function updateHistoricalChart() {
         };
 
         // Update all charts
-        historicalChart.update();
         currentMixChart.update();
         interconnectorChart.update();
 
