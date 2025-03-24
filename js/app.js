@@ -339,46 +339,49 @@ async function updateHistoricalChart() {
         // Process generation data
         const processedData = processGenerationData(genData);
 
-        // Add solar data
+        // Add solar data with interpolation
         if (solarData && solarData.data) {
-            console.log('Solar data processing:', {
-                rawData: solarData.data,
-                processedTimes: processedData.times.map(t => t.toISOString()),
-                beforeSolar: [...processedData.datasets['SOLAR']],
-            });
-
+            // First, create a map of exact solar readings
+            const solarReadings = new Map();
             solarData.data.forEach(([_, timestamp, gen]) => {
-                // Convert both timestamps to UTC for comparison
                 const solarTime = new Date(timestamp);
-                
-                // Find matching time in processed data
-                const timeIndex = processedData.times.findIndex(t => {
-                    // Convert both to UTC before comparing
-                    return t.getUTCHours() === solarTime.getUTCHours() && 
-                           t.getUTCMinutes() === solarTime.getUTCMinutes() &&
-                           t.getUTCDate() === solarTime.getUTCDate();
-                });
-
-                if (timeIndex !== -1) {
-                    // Convert from MW to GW
-                    const generation = Number(gen) / 1000;  // Convert MW to GW
-                    if (!isNaN(generation)) {
-                        processedData.datasets['SOLAR'][timeIndex] = generation;
-                        console.log('Matched solar data:', {
-                            solarTime: solarTime.toISOString(),
-                            matchedTime: processedData.times[timeIndex].toISOString(),
-                            valueMW: gen,
-                            valueGW: generation
-                        });
-                    }
-                } else {
-                    console.log('No match found for solar time:', solarTime.toISOString());
+                const generation = Number(gen) / 1000; // Convert MW to GW
+                if (!isNaN(generation)) {
+                    solarReadings.set(solarTime.getTime(), {
+                        time: solarTime,
+                        value: generation
+                    });
                 }
             });
 
-            console.log('After solar processing:', {
-                afterSolar: processedData.datasets['SOLAR'],
-                nonZeroCount: processedData.datasets['SOLAR'].filter(v => v > 0).length
+            // Convert readings to array and sort by time
+            const sortedReadings = Array.from(solarReadings.entries())
+                .sort(([timeA], [timeB]) => timeA - timeB);
+
+            // Interpolate values for each time point
+            processedData.times.forEach((time, index) => {
+                // Find the surrounding solar readings
+                const timeMs = time.getTime();
+                const readingIndex = sortedReadings.findIndex(([t]) => t > timeMs);
+
+                if (readingIndex > 0) {
+                    // We have readings before and after
+                    const [prevTime, prevReading] = sortedReadings[readingIndex - 1];
+                    const [nextTime, nextReading] = sortedReadings[readingIndex];
+
+                    // Linear interpolation
+                    const timeFraction = (timeMs - prevTime) / (nextTime - prevTime);
+                    const interpolatedValue = prevReading.value + 
+                        (nextReading.value - prevReading.value) * timeFraction;
+                    
+                    processedData.datasets['SOLAR'][index] = interpolatedValue;
+                } else if (readingIndex === 0 && sortedReadings.length > 0) {
+                    // Before first reading, use first value
+                    processedData.datasets['SOLAR'][index] = sortedReadings[0][1].value;
+                } else if (readingIndex === -1 && sortedReadings.length > 0) {
+                    // After last reading, use last value
+                    processedData.datasets['SOLAR'][index] = sortedReadings[sortedReadings.length - 1][1].value;
+                }
             });
         }
 
