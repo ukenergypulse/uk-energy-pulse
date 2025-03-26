@@ -107,31 +107,20 @@ h1 {
 
 .chart-row {
     display: flex;
-    width: 100%;
-    gap: 15px;
-    margin-bottom: 15px;  
+    justify-content: space-between;
+    gap: 20px;
+    margin-bottom: 20px;
 }
 
-.chart-row .chart-container {
-    height: 500px;  
-    margin: 0;  
-}
-
-.doughnut-container {
-    flex: 0 0 25%;
-    min-width: 250px;
-    height: 400px;  
-}
-
+.doughnut-container,
 .stack-container {
     flex: 1;
-    min-width: 0;
-    height: 400px;  
+    min-width: 0;  
 }
 
 .interconnector-container {
-    width: 100%;
-    height: 300px;
+    width: 100%;  
+    margin-top: 20px;
 }
 
 /* Base styles */
@@ -359,16 +348,25 @@ body {
 
     .chart-row {
         flex-direction: column;
+        gap: 15px;
     }
 
     .chart-container {
         width: 100%;
         margin: 10px 0;
+        height: auto;  
+        aspect-ratio: 16/9;  
     }
 
     .doughnut-container,
     .stack-container {
         width: 100%;
+    }
+
+    .interconnector-container {
+        margin-top: 15px;
+        height: auto;
+        aspect-ratio: 16/9;
     }
 
     .header-container {
