@@ -339,14 +339,42 @@ function initializeCharts() {
         options: {
             responsive: true,
             maintainAspectRatio: false,
-            layout: {
-                padding: {
-                    top: 10
-                }
+            interaction: {
+                mode: 'index',
+                intersect: false
             },
-            elements: {
-                point: {
-                    radius: 0
+            plugins: {
+                legend: {
+                    position: 'top',
+                    align: 'center',
+                    labels: {
+                        usePointStyle: true,
+                        pointStyle: 'line',
+                        font: {
+                            size: 11
+                        }
+                    }
+                },
+                tooltip: {
+                    mode: 'index',
+                    intersect: false,
+                    callbacks: {
+                        label: function(context) {
+                            return context.dataset.label + ': ' + context.parsed.y.toFixed(2) + ' GW';
+                        }
+                    }
+                },
+                title: {
+                    display: true,
+                    text: 'Interconnector Flows (+ Import, - Export)',
+                    font: {
+                        size: 18,
+                        weight: 'bold'
+                    },
+                    padding: {
+                        top: 10,
+                        bottom: 5
+                    }
                 }
             },
             scales: {
@@ -361,60 +389,12 @@ function initializeCharts() {
                     title: {
                         display: true,
                         text: 'Time'
-                    },
-                    ticks: {
-                        font: {
-                            size: fonts.tick.size
-                        }
                     }
                 },
                 y: {
-                    beginAtZero: true,
                     title: {
                         display: true,
-                        text: 'Flow (GW)'
-                    },
-                    ticks: {
-                        font: {
-                            size: fonts.tick.size
-                        },
-                        callback: function(value) {
-                            return value > 0 ? `+${value}` : value;
-                        }
-                    }
-                }
-            },
-            plugins: {
-                title: {
-                    display: true,
-                    text: 'Interconnector Flows (+ Import, - Export)',
-                    font: {
-                        size: 18,
-                        weight: 'bold'
-                    },
-                    padding: {
-                        top: 10,
-                        bottom: 5
-                    }
-                },
-                legend: {
-                    position: 'top',
-                    align: 'center',
-                    labels: {
-                        font: {
-                            size: 14
-                        },
-                        boxWidth: 20,
-                        padding: 15
-                    }
-                },
-                tooltip: {
-                    callbacks: {
-                        label: function(context) {
-                            const value = context.raw;
-                            const flowType = value > 0 ? 'Import' : 'Export';
-                            return `${context.dataset.label}: ${formatValue(value)} (${flowType})`;
-                        }
+                        text: 'Power (GW)'
                     }
                 }
             }
@@ -563,81 +543,14 @@ async function updateHistoricalChart() {
                 fill: false,
                 borderWidth: 2,
                 tension: 0.1,
-                pointRadius: 0,  // Hide regular points
-                pointHoverRadius: 4,  // Show points on hover
-                pointHoverBackgroundColor: config.colors[intType],  // Match hover point color to line
-                pointHoverBorderColor: config.colors[intType]  // Match hover point border to line
+                pointRadius: 0  // Hide regular points
             }))
         };
-
-        // Update interconnector chart options
-        interconnectorChart.options = {
-            responsive: true,
-            maintainAspectRatio: false,
-            interaction: {
-                mode: 'index',
-                intersect: false
-            },
-            plugins: {
-                legend: {
-                    position: 'top',
-                    align: 'center',
-                    labels: {
-                        usePointStyle: true,
-                        pointStyle: 'line',
-                        font: {
-                            size: 11
-                        }
-                    }
-                },
-                tooltip: {
-                    mode: 'index',
-                    intersect: false,
-                    callbacks: {
-                        label: function(context) {
-                            return context.dataset.label + ': ' + context.parsed.y.toFixed(2) + ' GW';
-                        }
-                    }
-                },
-                title: {
-                    display: true,
-                    text: 'Interconnector Flows (+ Import, - Export)',
-                    font: {
-                        size: 18,
-                        weight: 'bold'
-                    },
-                    padding: {
-                        top: 10,
-                        bottom: 5
-                    }
-                }
-            },
-            scales: {
-                x: {
-                    type: 'time',
-                    time: {
-                        unit: 'hour',
-                        displayFormats: {
-                            hour: 'HH:mm'
-                        }
-                    },
-                    title: {
-                        display: true,
-                        text: 'Time'
-                    }
-                },
-                y: {
-                    title: {
-                        display: true,
-                        text: 'Power (GW)'
-                    }
-                }
-            }
-        };
+        
+        interconnectorChart.update();
 
         // Update all charts
         currentMixChart.update();
-        interconnectorChart.update();
 
     } catch (error) {
         console.error('Error updating charts:', error);
