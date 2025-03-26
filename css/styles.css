@@ -341,3 +341,74 @@ body {
     height: 100%;
     object-fit: contain;
 }
+
+/* Media Queries for Responsive Design */
+@media screen and (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+
+    .container {
+        width: calc(100% - 20px);
+        padding: 10px;
+    }
+
+    h1 {
+        font-size: 1.5em;
+    }
+
+    .chart-row {
+        flex-direction: column;
+    }
+
+    .chart-container {
+        width: 100%;
+        margin: 10px 0;
+    }
+
+    .doughnut-container,
+    .stack-container {
+        width: 100%;
+    }
+
+    .header-container {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+    }
+
+    .header-container h1 {
+        margin-left: 0;
+    }
+
+    .menu-dropdown {
+        width: 100%;
+        min-width: unset;
+    }
+}
+
+@media screen and (min-width: 769px) and (max-width: 1024px) {
+    .chart-row {
+        flex-wrap: wrap;
+    }
+
+    .chart-container {
+        margin: 10px;
+    }
+
+    .doughnut-container,
+    .stack-container {
+        width: calc(50% - 20px);
+    }
+}
+
+@media screen and (min-width: 1025px) {
+    .container {
+        max-width: 1400px;
+        margin: 0 auto;
+    }
+
+    .chart-container {
+        margin: 15px;
+    }
+}
