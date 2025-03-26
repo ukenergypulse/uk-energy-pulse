@@ -21,13 +21,13 @@ const displayLabels = {
     'SOLAR': 'Solar',
     'GAS': 'Gas',
     // Interconnector labels
-    'INTFR': 'France',
-    'INTIRL': 'Ireland',
-    'INTNED': 'Netherlands',
-    'INTEW': 'East-West',
-    'INTELEC': 'IFA2',
-    'INTNEM': 'North Sea Link',
-    'INTVKL': 'Viking Link'
+    'INTFR': 'France (IFA1 & IFA2)',
+    'INTIRL': 'Northern Ireland (Moyle)',
+    'INTNED': 'Netherlands (BritNed)',
+    'INTEW': 'Rep of Ireland (East West)',
+    'INTELEC': 'France (ElecLink)',
+    'INTNEM': 'Belgium (Nemo Link)',
+    'INTVKL': 'Denmark (Viking Link)'
 };
 
 // Global chart instances
@@ -117,10 +117,44 @@ function processGenerationData(data) {
     return processedData;
 }
 
-// Initialize charts
+// Function to get responsive font configuration
+function getResponsiveFontConfig() {
+    // Check if we're on mobile
+    const isMobile = window.innerWidth <= 768;
+    return {
+        title: {
+            size: isMobile ? 14 : 16
+        },
+        label: {
+            size: isMobile ? 11 : 12
+        },
+        tick: {
+            size: isMobile ? 10 : 12
+        }
+    };
+}
+
+// Update chart configurations to ensure consistent sizing
 function initializeCharts() {
+    Chart.defaults.responsive = true;
+    Chart.defaults.maintainAspectRatio = false;
+    Chart.defaults.plugins.title.font = {
+        size: 18,
+        weight: 'bold'
+    };
+    Chart.defaults.plugins.title.padding = {
+        top: 10,
+        bottom: 5
+    };
+    Chart.defaults.plugins.legend.labels.font = {
+        size: 14
+    };
+    Chart.defaults.plugins.legend.labels.boxWidth = 20;
+    Chart.defaults.plugins.legend.labels.padding = 15;
+
     // Initialize historical chart
     const historicalCtx = document.getElementById('historicalChart').getContext('2d');
+    const fonts = getResponsiveFontConfig();
     historicalChart = new Chart(historicalCtx, {
         type: 'line',
         data: {
@@ -130,6 +164,11 @@ function initializeCharts() {
         options: {
             responsive: true,
             maintainAspectRatio: false,
+            layout: {
+                padding: {
+                    top: 10
+                }
+            },
             elements: {
                 point: {
                     radius: 0
@@ -147,6 +186,11 @@ function initializeCharts() {
                     title: {
                         display: true,
                         text: 'Time'
+                    },
+                    ticks: {
+                        font: {
+                            size: fonts.tick.size
+                        }
                     }
                 },
                 y: {
@@ -155,6 +199,11 @@ function initializeCharts() {
                     title: {
                         display: true,
                         text: 'Generation (GW)'
+                    },
+                    ticks: {
+                        font: {
+                            size: fonts.tick.size
+                        }
                     }
                 }
             },
@@ -163,11 +212,23 @@ function initializeCharts() {
                     display: true,
                     text: 'UK Electricity Generation - past 24 hours',
                     font: {
-                        size: 20,
+                        size: 18,
                         weight: 'bold'
                     },
                     padding: {
-                        bottom: 20
+                        top: 10,
+                        bottom: 5
+                    }
+                },
+                legend: {
+                    position: 'top',
+                    align: 'center',
+                    labels: {
+                        font: {
+                            size: 14
+                        },
+                        boxWidth: 20,
+                        padding: 15
                     }
                 },
                 tooltip: {
@@ -199,27 +260,44 @@ function initializeCharts() {
         options: {
             responsive: true,
             maintainAspectRatio: false,
+            layout: {
+                padding: {
+                    top: 10
+                }
+            },
             plugins: {
                 title: {
                     display: true,
                     text: 'Current Generation Mix',
                     font: {
-                        size: 20,
+                        size: 18,
                         weight: 'bold'
                     },
                     padding: {
-                        bottom: 10
+                        top: 10,
+                        bottom: 5
                     }
                 },
                 subtitle: {
                     display: true,
                     text: '',  // Will be updated with timestamp
                     font: {
-                        size: 14,
+                        size: fonts.label.size,
                         style: 'italic'
                     },
                     padding: {
                         bottom: 10
+                    }
+                },
+                legend: {
+                    position: 'top',
+                    align: 'center',
+                    labels: {
+                        font: {
+                            size: 14
+                        },
+                        boxWidth: 20,
+                        padding: 15
                     }
                 },
                 tooltip: {
@@ -235,7 +313,7 @@ function initializeCharts() {
                     color: 'white',
                     font: {
                         weight: 'bold',
-                        size: 14
+                        size: fonts.label.size
                     },
                     anchor: 'center',
                     align: 'center',
@@ -261,6 +339,11 @@ function initializeCharts() {
         options: {
             responsive: true,
             maintainAspectRatio: false,
+            layout: {
+                padding: {
+                    top: 10
+                }
+            },
             elements: {
                 point: {
                     radius: 0
@@ -278,6 +361,11 @@ function initializeCharts() {
                     title: {
                         display: true,
                         text: 'Time'
+                    },
+                    ticks: {
+                        font: {
+                            size: fonts.tick.size
+                        }
                     }
                 },
                 y: {
@@ -287,6 +375,9 @@ function initializeCharts() {
                         text: 'Flow (GW)'
                     },
                     ticks: {
+                        font: {
+                            size: fonts.tick.size
+                        },
                         callback: function(value) {
                             return value > 0 ? `+${value}` : value;
                         }
@@ -296,7 +387,26 @@ function initializeCharts() {
             plugins: {
                 title: {
                     display: true,
-                    text: 'Interconnector Flows (+ Import, - Export)'
+                    text: 'Interconnector Flows (+ Import, - Export)',
+                    font: {
+                        size: 18,
+                        weight: 'bold'
+                    },
+                    padding: {
+                        top: 10,
+                        bottom: 5
+                    }
+                },
+                legend: {
+                    position: 'top',
+                    align: 'center',
+                    labels: {
+                        font: {
+                            size: 14
+                        },
+                        boxWidth: 20,
+                        padding: 15
+                    }
                 },
                 tooltip: {
                     callbacks: {
@@ -387,6 +497,15 @@ async function updateHistoricalChart() {
 
         // Update charts
         const interconnectorOrder = ['INTFR', 'INTIRL', 'INTNED', 'INTEW', 'INTELEC', 'INTNEM', 'INTVKL'];
+        const interconnectorLabels = {
+            'INTFR': 'France (IFA1 & IFA2)',
+            'INTIRL': 'Northern Ireland (Moyle)',
+            'INTNED': 'Netherlands (BritNed)',
+            'INTEW': 'Rep of Ireland (East West)',
+            'INTELEC': 'France (ElecLink)',
+            'INTNEM': 'Belgium (Nemo Link)',
+            'INTVKL': 'Denmark (Viking Link)'
+        };
 
         // Update historical chart
         historicalChart.data = {
@@ -443,8 +562,77 @@ async function updateHistoricalChart() {
                 borderColor: config.colors[intType],
                 fill: false,
                 borderWidth: 2,
-                tension: 0.1
+                tension: 0.1,
+                pointRadius: 0,  // Hide regular points
+                pointHoverRadius: 4,  // Show points on hover
+                pointHoverBackgroundColor: config.colors[intType],  // Match hover point color to line
+                pointHoverBorderColor: config.colors[intType]  // Match hover point border to line
             }))
+        };
+
+        // Update interconnector chart options
+        interconnectorChart.options = {
+            responsive: true,
+            maintainAspectRatio: false,
+            interaction: {
+                mode: 'index',
+                intersect: false
+            },
+            plugins: {
+                legend: {
+                    position: 'top',
+                    align: 'center',
+                    labels: {
+                        usePointStyle: true,
+                        pointStyle: 'line',
+                        font: {
+                            size: 11
+                        }
+                    }
+                },
+                tooltip: {
+                    mode: 'index',
+                    intersect: false,
+                    callbacks: {
+                        label: function(context) {
+                            return context.dataset.label + ': ' + context.parsed.y.toFixed(2) + ' GW';
+                        }
+                    }
+                },
+                title: {
+                    display: true,
+                    text: 'Interconnector Flows (+ Import, - Export)',
+                    font: {
+                        size: 18,
+                        weight: 'bold'
+                    },
+                    padding: {
+                        top: 10,
+                        bottom: 5
+                    }
+                }
+            },
+            scales: {
+                x: {
+                    type: 'time',
+                    time: {
+                        unit: 'hour',
+                        displayFormats: {
+                            hour: 'HH:mm'
+                        }
+                    },
+                    title: {
+                        display: true,
+                        text: 'Time'
+                    }
+                },
+                y: {
+                    title: {
+                        display: true,
+                        text: 'Power (GW)'
+                    }
+                }
+            }
         };
 
         // Update all charts
@@ -460,6 +648,15 @@ async function updateHistoricalChart() {
 async function updateCharts() {
     await updateHistoricalChart();
 }
+
+// Add window resize handler
+window.addEventListener('resize', () => {
+    if (currentMixChart) currentMixChart.destroy();
+    if (historicalChart) historicalChart.destroy();
+    if (interconnectorChart) interconnectorChart.destroy();
+    
+    initializeCharts();
+});
 
 // Initialize and start updates
 document.addEventListener('DOMContentLoaded', () => {
