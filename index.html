@@ -1,19 +1,45 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Real-time UK electricity generation dashboard showing current energy mix, historical trends, and interconnector flows. Track renewable energy, fossil fuels, and cross-border power exchange.">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://ukenergypulse.org/">
+    <meta property="og:title" content="UK Energy Dashboard - Real-time Electricity Generation">
+    <meta property="og:description" content="Track UK's real-time electricity generation mix, including renewables, fossil fuels, and interconnector flows.">
+    
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="UK Energy Dashboard - Real-time Electricity Generation">
+    <meta name="twitter:description" content="Track UK's real-time electricity generation mix, including renewables, fossil fuels, and interconnector flows.">
+    
     <title>UK Energy Dashboard</title>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns"></script>
     <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.2.0"></script>
     <link rel="stylesheet" href="css/styles.css">
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "UK Energy Dashboard",
+      "description": "Real-time dashboard showing UK electricity generation mix, historical trends, and interconnector flows.",
+      "url": "https://ukenergypulse.org",
+      "applicationCategory": "Energy Monitoring",
+      "operatingSystem": "Any"
+    }
+    </script>
 </head>
 <body>
     <div class="container">
         <div class="header-container">
             <div class="nav-menu">
-                <button id="menuButton" class="menu-button">☰</button>
-                <div id="menuDropdown" class="menu-dropdown">
-                    <a href="index.html">UK Electricity Dashboard</a>
+                <button id="menuButton" class="menu-button" aria-label="Toggle navigation menu">☰</button>
+                <div id="menuDropdown" class="menu-dropdown" role="navigation" aria-label="Main navigation">
+                    <a href="index.html" aria-current="page">UK Electricity Dashboard</a>
                     <a href="blog.html">Articles</a>
                     <a href="learning.html">Learning</a>
                 </div>
@@ -22,14 +48,14 @@
         </div>
         <div class="chart-row">
             <div class="doughnut-container chart-container">
-                <canvas id="currentMixChart"></canvas>
+                <canvas id="currentMixChart" aria-label="Current UK electricity generation mix" role="img"></canvas>
             </div>
             <div class="stack-container chart-container">
-                <canvas id="historicalChart"></canvas>
+                <canvas id="historicalChart" aria-label="Historical UK electricity generation" role="img"></canvas>
             </div>
         </div>
         <div class="interconnector-container chart-container">
-            <canvas id="interconnectorChart"></canvas>
+            <canvas id="interconnectorChart" aria-label="UK interconnector power flows" role="img"></canvas>
         </div>
     </div>
     <script>
